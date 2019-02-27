@@ -1,5 +1,3 @@
-# The purpose of this file is to handle all sub projects as a single project
-
 ENVIRONMENT ?= local
 
 include ./properties/$(ENVIRONMENT).properties
@@ -20,28 +18,3 @@ test:
 undeploy:
 	$(MAKE) -C project_a stop
 	$(MAKE) -C project_b stop
-
-#build:
-#	$(MAKE) test.unit
-#	@echo "build for $(ENV)"
-#	$(MAKE) test.integration
-#
-#deploy:
-#	@echo "deploy to $(ENV)"
-#
-#release: deploy
-#	@echo "release to $(ENV)"
-#	$(MAKE) test.smoke
-#	$(MAKE) test.acceptance
-#
-#test.unit:
-#	@echo unit test
-#
-#test.integration:
-#	@echo integration test
-#
-#test.smoke:
-#	@echo smoke test
-#
-#test.acceptance:
-#	@echo acceptance test

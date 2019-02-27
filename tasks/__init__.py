@@ -1,37 +1,27 @@
 from invoke import Collection, task
 
-import tasks.app as app
-import tasks.docs as docs
-import tasks.release as release
+import tasks.project_a as project_a
+import tasks.project_b as project_b
 
 
-@task()
+@task(pre=[project_a.build, project_b.build])
 def build(c):
-    """
-        Build an artifact.
-        """
-    print("Building!")
-    print(c.config['env'])
-    print(c.config['project']['name'])
+    print()
 
 
-@task(post=[app.publish])
+@task(pre=[project_a.run_detached, project_b.run_detached])
 def deploy(c):
-    print("Deploying!")
+    print()
 
 
-@task(docs.hello_world, app.build, release.release)
-def chain(c):
-    print("Calling other tasks within a task doesn't work...")
-    # docs.hello_world()
-    # app.build()
-    # release.release()
+@task(project_a.check, project_b.check)
+def test(c):
+    print()
 
 
-ns = Collection()
-ns.add_task(build)
-ns.add_task(deploy)
-ns.add_task(chain)
-ns.add_task(release.release)
-ns.add_collection(docs)
-ns.add_collection(app)
+@task(project_a.stop, project_b.stop)
+def undeploy(c):
+    print()
+
+
+ns = Collection(build, deploy, test, undeploy, project_a, project_b)

@@ -1,4 +1,12 @@
 env: development
 
+project_a:
+  port: 4000
+  tag: project_aaa
+
+project_b:
+  port: 5000
+  tag: project_bbb
+
 project:
   name: maker
