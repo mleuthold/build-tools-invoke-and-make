@@ -1,4 +1,5 @@
 from invoke import Collection, task
+
 import tasks.docs as docs
 
 
@@ -32,6 +33,7 @@ def deploy(c):
 @task(name='sayHi')
 def hi(c, name):
     print("Hi {}!".format(name))
+
 
 @task
 def do_something(c, name):

@@ -1,6 +1,8 @@
 from invoke import Collection, task
 
-import tasks.release as release, tasks.docs as docs, tasks.app as app
+import tasks.app as app
+import tasks.docs as docs
+import tasks.release as release
 
 
 @task()
@@ -17,7 +19,8 @@ def build(c):
 def deploy(c):
     print("Deploying!")
 
-@task(docs.hello_world, app.build,release.release)
+
+@task(docs.hello_world, app.build, release.release)
 def chain(c):
     print("Calling other tasks within a task doesn't work...")
     # docs.hello_world()
