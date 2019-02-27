@@ -1,5 +1,7 @@
 # invoke-and-make
-Compare build tools invoke and make
+Compare build tools `invoke` and `make`.
+
+The use case is a multi-project setup, i.e. multiple projects are hosted in a single git repo. Each sub project creates it's own Docker image.
 
 # How to use make with Makefile
 For multiple commands use sub-shell
