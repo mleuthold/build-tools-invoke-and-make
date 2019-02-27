@@ -4,26 +4,17 @@ include ./properties/$(ENVIRONMENT).properties
 export
 
 build:
-	$(MAKE) test.unit
-	@echo "build for $(ENV)"
-	$(MAKE) test.integration
+	$(MAKE) -C project_a build
+	$(MAKE) -C project_b build
 
 deploy:
-	@echo "deploy to $(ENV)"
+	$(MAKE) -C project_a run.detached
+	$(MAKE) -C project_b run.detached
 
-release: deploy
-	@echo "release to $(ENV)"
-	$(MAKE) test.smoke
-	$(MAKE) test.acceptance
+test:
+	$(MAKE) -C project_a check
+	$(MAKE) -C project_b check
 
-test.unit:
-	@echo unit test
-
-test.integration:
-	@echo integration test
-
-test.smoke:
-	@echo smoke test
-
-test.acceptance:
-	@echo acceptance test
+undeploy:
+	$(MAKE) -C project_a stop
+	$(MAKE) -C project_b stop
