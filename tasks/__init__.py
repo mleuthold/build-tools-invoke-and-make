@@ -28,7 +28,7 @@ def chain(c):
     # release.release()
 
 
-ns = Collection().from_module(type)
+ns = Collection()
 ns.add_task(build)
 ns.add_task(deploy)
 ns.add_task(chain)
