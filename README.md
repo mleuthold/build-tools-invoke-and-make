@@ -14,6 +14,8 @@ The use case is a multi-project setup, i.e. multiple projects are hosted in a si
 | - Makefiles are scattered around in each sub-project | . |
 | - Shell scripts need to adopt specific $$ syntax | . |
 
+The probably biggest advantage, which needs to be proven, is the writing of tests and test suites in Python rather than in Shell.
+
 # make with Makefile
 
 run from root (includes all sub-projects)
