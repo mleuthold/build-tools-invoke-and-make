@@ -22,5 +22,12 @@ inv --list
 ```
 and execute a chain of targets
 ```bash
-inv build deploy release
+inv deploy release
+```
+
+Execute invoke with a given config file
+```bash
+inv -f configs/local.yaml build
+# or
+inv -f configs/development.yaml build
 ```
