@@ -32,7 +32,7 @@ make --jobs --output-sync=recurse --no-keep-going build
 ```
 measure time for parallel run
 ```bash
-MY_DATE=$(date); make --jobs --output-sync=recurse --no-keep-going build; echo $MY_DATE; (date)
+time make --jobs --output-sync=recurse --no-keep-going build
 ```
 # invoke with tasks
 

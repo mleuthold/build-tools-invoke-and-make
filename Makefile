@@ -1,4 +1,19 @@
+.ONESHELL:
+MAKEFLAGS += --warn-undefined-variables
+SHELL := bash
+.SHELLFLAGS := -eu -c
+
+
 ENVIRONMENT ?= local
+
+ifeq ($(ENVIRONMENT), local) # if local, then use timestamp over last commit ID to tag Docker image
+	export COMMIT := $(shell date +%Y-%m-%d_%H-%M-%S)
+	MY_TEST := $(shell minikube docker-env | head -n3 | tail -n1 | cut -d\= -f2)
+	export DOCKER_TLS_VERIFY := $(shell minikube docker-env | head -n1 | tail -n1 | cut -d\= -f2)
+	export DOCKER_HOST := $(shell minikube docker-env | head -n2 | tail -n1 | cut -d\= -f2)
+	export DOCKER_CERT_PATH := $(shell minikube docker-env | head -n3 | tail -n1 | cut -d\= -f2)
+	export DOCKER_API_VERSION := $(shell minikube docker-env | head -n4 | tail -n1 | cut -d\= -f2)
+endif
 
 include ./properties/$(ENVIRONMENT).properties
 export
@@ -6,6 +21,23 @@ export
 include mk/*.mk
 #include ./mk/project_a.mk
 #include ./mk/project_b.mk
+
+tester: test_toast
+	export -p | grep DOCKER
+	echo $(PROJECT_NAME)
+	echo $(COMMIT)
+	echo $(MY_TEST)
+	$(MAKE) testing
+
+testing:
+	echo testing
+	export -p | grep DOCKER
+	echo $(DOCKER_CERT_PATH)
+
+test_toast:
+	echo test_toast
+	env | grep DOCKER
+	echo $(DOCKER_CERT_PATH)
 
 build: \
 	build.project_a \
