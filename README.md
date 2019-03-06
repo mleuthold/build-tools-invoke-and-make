@@ -1,4 +1,5 @@
 # invoke-and-make
+
 Compare build tools `invoke` and `make`.
 
 The use case is a multi-project setup, i.e. multiple projects are hosted in a single git repo. Each sub project creates it's own Docker image.
@@ -13,18 +14,26 @@ make with Makefile | invoke with tasks
 - redundant code in each Makefile for loading properties | + clear separation of config loading from tasks file
 - Makefiles are scattered around in each sub-project | .
 - Shell scripts need to adopt specific $$ syntax | .
++ can run targets in parallel | parallelism not supported
 
 # make with Makefile
 
-run from root (includes all sub-projects)
+runs with local environment by default
 ```bash
-env ENVIRONMENT=local make build
+make build
 ```
-run sepcific sub-project
+run with specific environment
 ```bash
-env ENVIRONMENT=development make -C project_a build
+env ENVIRONMENT=development make build
 ```
-
+run in parallel
+```bash
+make --jobs --output-sync=recurse --no-keep-going build
+```
+measure time for parallel run
+```bash
+MY_DATE=$(date); make --jobs --output-sync=recurse --no-keep-going build; echo $MY_DATE; (date)
+```
 # invoke with tasks
 
 run from root (includes all sub-projects)

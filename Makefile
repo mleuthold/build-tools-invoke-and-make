@@ -3,18 +3,22 @@ ENVIRONMENT ?= local
 include ./properties/$(ENVIRONMENT).properties
 export
 
-build:
-	$(MAKE) -C project_a build
-	$(MAKE) -C project_b build
+include mk/*.mk
+#include ./mk/project_a.mk
+#include ./mk/project_b.mk
 
-deploy:
-	$(MAKE) -C project_a run.detached
-	$(MAKE) -C project_b run.detached
+build: \
+	build.project_a \
+	build.project_b
 
-test:
-	$(MAKE) -C project_a check
-	$(MAKE) -C project_b check
+deploy: \
+	run.detached.project_a \
+	run.detached.project_b
+
+test: \
+	check.project_a \
+	check.project_b
 
 undeploy:
-	$(MAKE) -C project_a stop
-	$(MAKE) -C project_b stop
+	stop.project_a \
+	stop.project_b
