@@ -19,6 +19,20 @@ test: \
 	check.project_a \
 	check.project_b
 
-undeploy:
+undeploy: \
 	stop.project_a \
 	stop.project_b
+
+wait: wait.3 wait.4 wait.5 wait.6
+
+wait.6:
+	sleep 6
+
+wait.5:
+	sleep 5
+
+wait.4:
+	sleep 4
+
+wait.3:
+	sleep 3
