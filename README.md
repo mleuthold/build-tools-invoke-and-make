@@ -4,17 +4,23 @@ Compare build tools `invoke` and `make`.
 
 The use case is a multi-project setup, i.e. multiple projects are hosted in a single git repo. Each sub project creates it's own Docker image.
 
+# prerequisites
+
+Enable YAML configuration files for `SHELL` scripts:
+
+```bash
+pip install --user yq
+```
+
 # pros and cons
 
 make with Makefile | invoke with tasks
 | --- | --- |
 | + well known standard | + yaml as config files |
-| + direct shell scripts with highlighting in IDE | + Python instead of shell scripting |
-| + less lines of code (2/3) | + direct calling of sub-project tasks |
-| - redundant code in each Makefile for loading properties | + clear separation of config loading from tasks file |
-| - Makefiles are scattered around in each sub-project | . |
+| + shell scripts with highlighting in IDE | + Python instead of shell scripting |
+| + less lines of code (2/3) | . |
 | - Shell scripts need to adopt specific $$ syntax | . |
-| + can run targets in parallel | parallelism not supported |
+| + can run targets in parallel | - parallelism not supported |
 
 # make with Makefile
 
